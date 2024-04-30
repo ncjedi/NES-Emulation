@@ -15,14 +15,14 @@ public:
 	//sets each flag bit
 	enum Flags
 	{
-		C = (1 << 0), //Carry
-		Z = (1 << 1), //Zero
-		I = (1 << 2), //Disable inturrupts
-		D = (1 << 3), //Decimal Mode
-		B = (1 << 4), //Break
-		U = (1 << 5), //Unused
-		V = (1 << 6), //Overflow
-		N = (1 << 7) //Negitive
+		C = (1 << 0), //Carry bit
+		Z = (1 << 1), //Zero bit
+		I = (1 << 2), //Disable inturrupts bit
+		D = (1 << 3), //Decimal Mode bit
+		B = (1 << 4), //Break bit
+		U = (1 << 5), //Unused bit :(
+		V = (1 << 6), //Overflow bit
+		N = (1 << 7) //Negitive bit
 	};
 
 	uint8_t a = 0x00; //accumulator
@@ -35,7 +35,7 @@ public:
 private:
 	Bus *bus = nullptr;
 
-	uint8_t Read(uint16_t address, bool readOnly);
+	uint8_t Read(uint16_t address);
 	void Write(uint16_t address, uint8_t data);
 
 	uint8_t GetFlag(Flags f);
@@ -49,7 +49,7 @@ private:
 	uint8_t ABY();	uint8_t IND();
 	uint8_t IZX();	uint8_t IZY();
 
-	//Opcodes
+	//Instructions
 	uint8_t ADC();	uint8_t AND();	uint8_t ASL();	uint8_t BCC();
 	uint8_t BCS();	uint8_t BEQ();	uint8_t BIT();	uint8_t BMI();
 	uint8_t BNE();	uint8_t BPL();	uint8_t BRK();	uint8_t BVC();
