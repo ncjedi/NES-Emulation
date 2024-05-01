@@ -37,7 +37,7 @@ void CPU::ConnectBus(Bus* connection)
 
 uint8_t CPU::Read(uint16_t address)
 {
-	bus->Read(address, false);
+	return bus->Read(address, false);
 }
 
 void CPU::Write(uint16_t address, uint8_t data)
@@ -528,6 +528,8 @@ uint8_t CPU::ADC()
 	SetFlag(V, (~((uint16_t)a ^ (uint16_t)fetched) & ((uint16_t)a ^ (uint16_t)sum)) & 0x0080); //Check this for missplaced parenthesies. Also why is everything convereted to 16 bit characters?? ***
 
 	a = sum & 0x00FF;
+
+	return 1;
 }
 
 //Subtraction instruction
@@ -545,6 +547,8 @@ uint8_t CPU::SBC()
 	SetFlag(V, (~((uint16_t)a ^ (uint16_t)fetched) & (sum ^ invertedFetch)) & 0x0080); //Check this for missplaced parenthesies. Also why is everything convereted to 16 bit characters?? ***
 
 	a = sum & 0x00FF;
+
+	return 1;
 }
 
 //Arithmatic shift left
@@ -605,7 +609,7 @@ uint8_t CPU::BRK()
 	sktp--;
 	SetFlag(B, 0);
 
-	pc = (uint16_t)Read(0xFFFE) | ((uint16_t)Read(0xFFFF) << 8);//What's kept here?? Why does the program counter go here?
+	pc = (uint16_t)Read(0xFFFE) | ((uint16_t)Read(0xFFFF) << 8);
 
 	return 0;
 }

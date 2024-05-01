@@ -32,6 +32,22 @@ public:
 	uint16_t pc = 0x0000; //program counter
 	uint8_t status = 0x00; //status register
 
+	//Input signals into the CPU
+	void Clock();
+	void Reset();
+	void IRQ();
+	void NMI();
+
+	uint16_t GetAddrAbs() //Test Function
+	{
+		return addr_abs;
+	}
+
+	uint16_t GetAddrRel() //Test Function
+	{
+		return addr_rel;
+	}
+
 private:
 	Bus *bus = nullptr;
 
@@ -76,12 +92,6 @@ private:
 	};
 
 	std::vector<INSTRUCTION> lookup;
-
-	//Input signals into the CPU
-	void Clock();
-	void Reset();
-	void IRQ();
-	void NMI();
 
 	//Internal CPU stuff
 	//Fetching data
